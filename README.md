@@ -47,7 +47,7 @@ MainWindow::MainWindow()
   setCentralWidget(&imageView);
   
   // use the imageLoaded signal to display a loaded image of a loaded image sequence
-  connect(&imageView, &ResizableImageViewDock::imageLoaded, this, [=](QImage image)
+  connect(&imageView, &ResizableImageViewDock::imageLoaded, this, [&](QImage image)
   {
 			imageView.setPixmap(QPixmap::fromImage(image));
   });
@@ -70,4 +70,58 @@ Play a slideshow:
 ![slideshow](https://cloud.githubusercontent.com/assets/1067159/21003984/7e6652a4-bd2e-11e6-89ae-89ec54f350d1.gif)
 
 
+## Multiple image views
+
+Since the Widget is actually a docking widget it can be easily added to exisiting windows as docks.
+![multiview1](https://cloud.githubusercontent.com/assets/1067159/21006362/df1f3f16-bd38-11e6-96ba-996db764390e.gif)
+
+The whole code needed to implement this example is shown below (for readability shown in one header file).
+
+```cpp
+#include <QMainWindow>
+
+#include "resizableimageview.h"
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+private:
+
+	ResizableImageViewDock imageView;
+	ResizableImageViewDock imageViewDockLeft;
+	ResizableImageViewDock imageViewDockRight;
+
+public:
+
+    MainWindow() : imageView("Central Image", this), imageViewDockLeft("Left image", this), imageViewDockRight("Right image", this)
+	{
+
+		resize(600, 600);
+
+		setCentralWidget(&imageView);
+		connect(&imageView, &ResizableImageViewDock::imageLoaded, this, [=](QImage image){
+			imageView.setPixmap(QPixmap::fromImage(image));
+		});
+
+		
+		imageViewDockLeft.setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
+		imageViewDockLeft.setAllowedAreas(Qt::LeftDockWidgetArea);
+		addDockWidget(Qt::LeftDockWidgetArea, &imageViewDockLeft);
+		connect(&imageViewDockLeft, &ResizableImageViewDock::imageLoaded, this, [=](QImage image){
+			imageViewDockLeft.setPixmap(QPixmap::fromImage(image));
+		});
+
+		imageViewDockRight.setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
+		imageViewDockRight.setAllowedAreas(Qt::RightDockWidgetArea);
+		addDockWidget(Qt::RightDockWidgetArea, &imageViewDockRight);
+		connect(&imageViewDockRight, &ResizableImageViewDock::imageLoaded, this, [=](QImage image){
+			imageViewDockRight.setPixmap(QPixmap::fromImage(image));
+		});
+
+		show();
+	}
+
+};
+```
 
