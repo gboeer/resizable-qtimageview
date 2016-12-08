@@ -59,7 +59,7 @@ MainWindow::MainWindow()
 Using this configuration one the widget can be used as displayed below.
 Open an image sequence:
 
-![opensequence](https://cloud.githubusercontent.com/assets/1067159/21003983/7e662e3c-bd2e-11e6-8963-ee8c39c43246.gif)
+![opensequence](https://cloud.githubusercontent.com/assets/1067159/21004206/7be120d0-bd2f-11e6-88f5-71921d8e77e5.gif)
 
 Browse the images:
 
