@@ -125,3 +125,10 @@ public:
 };
 ```
 
+## Build
+This widget has been tested with:
+- Visual Studio 2012 Update 5
+- QT 5.7
+- CMake 3.6.1
+
+
