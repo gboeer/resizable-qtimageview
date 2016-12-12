@@ -2,6 +2,7 @@
 
 #include "../include/resizableimageview.h"
 
+//! This is a simple GUI to demonstrate the ResizableImageViewDock widget
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -12,15 +13,6 @@ private:
 
 public:
 
-    MainWindow() : imageView("Image", this)
-	{
-
-		setCentralWidget(&imageView);
-		connect(&imageView, &ResizableImageViewDock::imageLoaded, this, [=](QImage image){
-			imageView.setPixmap(QPixmap::fromImage(image));
-		});
-
-		show();
-	}
+    MainWindow();
 
 };

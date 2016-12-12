@@ -20,7 +20,7 @@ if (BUILD_TEST)
 
 	set(CMAKE_AUTOMOC ON)
 	
-	add_executable(widget_test include/resizableimageview.h src/resizableimageview test/test.cpp test/mainwindow.h)
+	add_executable(widget_test include/resizableimageview.h src/resizableimageview test/test.cpp test/mainwindow.h test/mainwindow.cpp)
 	
 	# Find the QtWidgets library
 	# Instruct CMake to run moc automatically when needed.
